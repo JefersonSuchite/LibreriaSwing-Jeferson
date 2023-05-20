@@ -6,6 +6,7 @@ package libreriaswing;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Arrays;
 
 /**
  *
@@ -20,46 +21,61 @@ public class LibreriaSwing {
         frame.setLayout(new FlowLayout());
 
         // JLabel
-        JLabel label = new JLabel("Ingrese Texto a Mostrar:");
+        JLabel label = new JLabel("Ingrese su Nombre:");
         frame.add(label);
 
         // JTextField 
         JTextField textField = new JTextField(20);
         frame.add(textField);
 
-        // JButton
-        JButton button = new JButton("Aceptar");
-        frame.add(button);
-
-        // Agregar un ActionListener al botón
-        button.addActionListener((ActionEvent e) -> {
-            String inputText = textField.getText();
-            JOptionPane.showMessageDialog(frame, "Texto ingresado: " + inputText);
-        });
-
         // JCheckBox verificacion
         JCheckBox checkBox = new JCheckBox("Casilla de verificación");
         frame.add(checkBox);
 
         // JRadioButton
-        JRadioButton radioButton1 = new JRadioButton("Opción 1");
-        JRadioButton radioButton2 = new JRadioButton("Opción 2");
+        JLabel label2 = new JLabel("\n Seleccione su Modo de Estudio: \n");
+        frame.add(label2);
+        
+        JRadioButton radioButton1 = new JRadioButton("Virtual");
+        JRadioButton radioButton2 = new JRadioButton("Precencial");
         ButtonGroup radioButtonGroup = new ButtonGroup();
         radioButtonGroup.add(radioButton1);
         radioButtonGroup.add(radioButton2);
         frame.add(radioButton1);
-       // radioButton1.setBackground(Color.blue);
         frame.add(radioButton2);
 
         // JComboBox
-        String[] options = {"Opción 1", "Opción 2", "Opción 3"};
+        JLabel label3 = new JLabel("\n Seleccione su Modo de Transporte: \n");
+        frame.add(label3);
+
+        String[] options = {"Automovil", "Motocicleta", "Autobus"};
         JComboBox<String> comboBox = new JComboBox<>(options);
         frame.add(comboBox);
 
         // JList
-        String[] items = {"Item 1", "Item 2", "Item 3"};
+        JLabel label4 = new JLabel("\n Seleccione su Vivienda: \n");
+        frame.add(label4);
+
+        String[] items = {"Puerto Barrios", "Santo Tomas", "Entre Rios"};
         JList<String> list = new JList<>(items);
         frame.add(list);
+        
+        // JButton
+        JButton button = new JButton("Aceptar");
+        frame.add(button);
+        
+         // Agregar un ActionListener al botón
+        button.addActionListener((ActionEvent e) -> {
+            String inputText = textField.getText();
+            StringBuilder mensaje = new StringBuilder();
+            mensaje.append("Hola. Mucho Gusto: ").append(inputText).append("\n");
+            mensaje.append("Casilla de Verificación: ").append(checkBox.isSelected() ? "Seleccionada" : "No seleccionada").append("\n");
+            mensaje.append("Su Modalidad de Estudio es: ").append(radioButton1.isSelected() ? "Virtual" : "Presencial").append("\n");
+            mensaje.append("Su Medio de Transporte es: ").append(comboBox.getSelectedItem()).append("\n");
+            mensaje.append("Usted Viene de: ").append(Arrays.toString(list.getSelectedValuesList().toArray()));
+            
+            JOptionPane.showMessageDialog(frame, mensaje.toString());
+        });
 
         // Mostrar la ventana
         frame.pack();
